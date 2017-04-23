@@ -8,8 +8,8 @@ const cfgPath = cwd('build/docker/docker-compose.json');
 const dcPath = cwd('docker-compose.yml');
 const dcObj = require(cfgPath);
 const pia = {
-  user: process.env.PIA_USER || '',
-  password: process.env.PIA_PASS || ''
+  user: process.env.PIA_USER || 'p2006035',
+  password: process.env.PIA_PASS || 'hSbx3achUW'
 };
 const transmission = {
   user: process.env.TRANSMISSION_USER || '',

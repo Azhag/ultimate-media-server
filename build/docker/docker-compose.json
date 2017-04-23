@@ -4,9 +4,9 @@
     "volumes": [
       "./configs:/configs",
       "/etc/localtime:/etc/localtime:ro",
-      "./media:/mnt/media:ro",
-      "./media:/data",
-      "./temp:/temp"
+      "/media/data:/mnt/media:ro",
+      "/media/data:/data",
+      "/media/data/temp:/temp"
     ]
   },
   "sabnzbd": {
@@ -16,16 +16,16 @@
     ],
     "volumes": [
       "./configs/sabnzbd:/config",
-      "./temp/downloads/sabnzbd:/downloads",
-      "./temp/incomplete/sabnzbd:/incomplete-downloads",
-      "./temp/tv:/tv",
-      "./temp/movies/release:/movies/release",
-      "./temp/movies/prerelease:/movies/prerelease"
+      "/media/data/temp/downloads/sabnzbd:/downloads",
+      "/media/data/temp/incomplete/sabnzbd:/incomplete-downloads",
+      "/media/data/temp/tv:/tv",
+      "/media/data/temp/movies/release:/movies/release",
+      "/media/data/temp/movies/prerelease:/movies/prerelease"
     ],
     "environment": [
-      "PUID=0",
-      "PGID=0",
-      "TZ=America/New_York"
+      "PUID=1000",
+      "PGID=1000",
+      "TZ=Europe/London"
     ],
     "ports": [
       "8080:8080",
@@ -43,46 +43,22 @@
     ],
     "volumes": [
       "./configs/sonarr:/config",
-      "./temp/tv:/downloads/tv",
-      "./media/tv:/tv",
-      "./temp/tv/:/temp/tv",
+      "/media/data/temp/tvshows:/downloads/tv",
+      "/media/data/tvshows:/tv",
+      "/media/data/temp/tvshows/:/temp/tv",
       "/dev/rtc:/dev/rtc:ro"
     ],
     "ports": [
       "8989:8989"
     ],
     "environment": [
-      "PUID=0",
-      "PGID=0",
-      "TZ=America/New_York"
+      "PUID=1000",
+      "PGID=1000",
+      "TZ=Europe/London"
     ],
     "links": [
       "sabnzbd",
       "transmission"
-    ],
-    "restart": "always"
-  },
-  "sickbeard": {
-    "image": "timhaak/sickbeard",
-    "volumes_from": [
-      "shares"
-    ],
-    "volumes": [
-      "./configs/sickbeard:/config",
-      "./temp/tv:/completed",
-      "./media/tv:/tv"
-    ],
-    "links": [
-      "sabnzbd"
-    ],
-    "ports": [
-      "8081:8081"
-    ],
-    "environment": [
-      "TZ=America/New_York"
-    ],
-    "extra_hosts": [
-      "0.0.0.0:localhost"
     ],
     "restart": "always"
   },
@@ -94,8 +70,8 @@
     "volumes": [
       "./configs/couchpotato/release:/config",
       "./configs/couchpotato/release/downloads:/downloads",
-      "./temp/movies/release:/completed",
-      "./media/movies/release:/movies"
+      "/media/data/temp/movies/release:/completed",
+      "/media/data/movies/release:/movies"
     ],
     "links": [
       "sabnzbd",
@@ -105,9 +81,9 @@
       "5050:5050"
     ],
     "environment": [
-      "PUID=0",
-      "PGID=0",
-      "TZ=America/New_York"
+      "PUID=1000",
+      "PGID=1000",
+      "TZ=Europe/London"
     ],
     "extra_hosts": [
       "0.0.0.0:localhost"
@@ -126,16 +102,16 @@
     "volumes": [
       "./configs/couchpotato/prerelease:/config",
       "./configs/couchpotato/prerelease/downloads:/downloads",
-      "./temp/movies/prerelease:/completed",
-      "./media/movies/prerelease:/movies"
+      "/media/data/temp/movies/prerelease:/completed",
+      "/media/data/movies/prerelease:/movies"
     ],
     "ports": [
       "5051:5050"
     ],
     "environment": [
-      "PUID=0",
-      "PGID=0",
-      "TZ=America/New_York"
+      "PUID=1000",
+      "PGID=1000",
+      "TZ=Europe/London"
     ],
     "extra_hosts": [
       "0.0.0.0:localhost"
@@ -149,17 +125,17 @@
     ],
     "volumes": [
       "./configs/plex:/config",
-      "./temp/plex/transcode:/transcode",
-      "./temp/plex/sync:/config/Library/Application Support/Plex Media Server/Cache/Transcode/Sync+"
+      "/media/data/temp/plex/transcode:/transcode",
+      "/media/data/temp/plex/sync:/config/Library/Application Support/Plex Media Server/Cache/Transcode/Sync+"
     ],
     "ports": [
       "32400:32400"
     ],
     "environment": [
       "VERSION=plexpass",
-      "PGID=0",
-      "PUID=0",
-      "TZ=America/New_York"
+      "PGID=1000",
+      "PUID=1000",
+      "TZ=Europe/London"
     ],
     "restart": "always",
     "net": "host"
@@ -177,9 +153,9 @@
       "8181:8181"
     ],
     "environment": [
-      "PGID=0",
-      "PUID=0",
-      "TZ=America/New_York"
+      "PGID=1000",
+      "PUID=1000",
+      "TZ=Europe/London"
     ],
     "restart": "always"
   },
@@ -198,7 +174,7 @@
       "TRANSMISSION_SPEED_LIMIT_DOWN_ENABLED=true",
       "TRANSMISSION_SPEED_LIMIT_UP=1",
       "TRANSMISSION_SPEED_LIMIT_UP_ENABLED=true",
-      "TRANSMISSION_DOWNLOAD_DIR=/temp",
+      "TRANSMISSION_DOWNLOAD_DIR=/incomplete",
       "TRANSMISSION_INCOMPLETE_DIR=/incomplete",
       "TRANSMISSION_INCOMPLETE_DIR_ENABLED=true",
       "TRANSMISSION_DOWNLOAD_LIMIT=1000",
@@ -209,17 +185,17 @@
       "TRANSMISSION_DOWNLOAD_QUEUE_SIZE=50",
       "TRANSMISSION_DOWNLOAD_QUEUE_ENABLED=true",
       "TRANSMISSION_UPLOAD_SLOTS_PER_TORRENT=1",
-      "TZ=America/New_York"
+      "TZ=Europe/London"
     ],
     "extra_hosts": [
       "0.0.0.0:localhost"
     ],
     "volumes": [
       "./configs/transmission:/config",
-      "./temp/incomplete/transmission:/incomplete",
-      "./temp/tv:/tv",
-      "./temp/movies/prerelease:/movies/prerelease",
-      "./temp/movies/release:/movies/release"
+      "/media/data/temp/incomplete/transmission:/incomplete",
+      "/media/data/temp/tv:/tv",
+      "/media/data/temp/movies/prerelease:/movies/prerelease",
+      "/media/data/temp/movies/release:/movies/release"
     ],
     "dns": [
       "8.8.8.8",
