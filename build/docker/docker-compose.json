@@ -60,6 +60,9 @@
       "sabnzbd",
       "transmission"
     ],
+    "extra_hosts": [
+      "0.0.0.0:localhost"
+    ],
     "restart": "always"
   },
   "couchpotato": {
