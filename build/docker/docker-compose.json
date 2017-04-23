@@ -43,9 +43,9 @@
     ],
     "volumes": [
       "./configs/sonarr:/config",
-      "/media/data/temp/tvshows:/downloads/tv",
-      "/media/data/tvshows:/tv",
-      "/media/data/temp/tvshows/:/temp/tv",
+      "/media/data/temp/tv:/downloads/tv",
+      "/media/data/tv:/tv",
+      "/media/data/temp/tv/:/temp/tv",
       "/dev/rtc:/dev/rtc:ro"
     ],
     "ports": [
@@ -168,13 +168,13 @@
       "OPENVPN_USERNAME=${PIA_USER}",
       "OPENVPN_PASSWORD=${PIA_PASS}",
       "OPENVPN_PROVIDER=PIA",
-      "OPENVPN_CONFIG=Switzerland",
+      "OPENVPN_CONFIG=Netherlands",
       "TRANSMISSION_HOME=/config",
       "TRANSMISSION_SPEED_LIMIT_DOWN=1000",
       "TRANSMISSION_SPEED_LIMIT_DOWN_ENABLED=true",
       "TRANSMISSION_SPEED_LIMIT_UP=1",
       "TRANSMISSION_SPEED_LIMIT_UP_ENABLED=true",
-      "TRANSMISSION_DOWNLOAD_DIR=/incomplete",
+      "TRANSMISSION_DOWNLOAD_DIR=/temp",
       "TRANSMISSION_INCOMPLETE_DIR=/incomplete",
       "TRANSMISSION_INCOMPLETE_DIR_ENABLED=true",
       "TRANSMISSION_DOWNLOAD_LIMIT=1000",
